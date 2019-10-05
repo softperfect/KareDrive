@@ -1,0 +1,132 @@
+<!--<manifest xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--package="com.legalcases">-->
+<manifest  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.legalcases">
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.Camera"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_VIDEO"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <permission
+        android:name="${applicationId}.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
+    <!-- < Only if you're using GCM or localNotificationSchedule() > -->
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+
+    <application tools:node="replace"
+      android:name=".MainApplication"
+      android:label="Drive Kare"
+      android:icon="@mipmap/icon"
+      android:allowBackup="false"
+        android:theme="@style/SplashTheme">
+        <!--add FacebookActivity-->
+        <activity tools:replace="android:theme"
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent"/>
+
+        <!--add CustomTabActivity-->
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+
+        <!--reference your fb_app_id-->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/fb_app_id"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAebWymvN42qYV1cAxd8hlflddSAahc_v8"/>
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_name"
+            android:value="YOUR NOTIFICATION CHANNEL NAME"/>
+        <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_description"
+            android:value="YOUR NOTIFICATION CHANNEL DESCRIPTION"/>
+        <!-- Change the resource name to your App's accent color - or any other color you want -->
+        <meta-data  android:name="com.dieam.reactnativepushnotification.notification_color"
+            android:resource="@android:color/white"/>
+
+        <!-- < Only if you're using GCM or localNotificationSchedule() > -->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </receiver>
+        <!-- < Only if you're using GCM or localNotificationSchedule() > -->
+
+        <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationPublisher" />
+        <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationBootEventReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationRegistrationService"/>
+
+        <service
+            android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerServiceGcm"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <activity
+        android:name=".MainActivity"
+        android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+             android:windowSoftInputMode="adjustResize"
+         >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+            <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+        </intent-filter>
+      </activity>
+      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths"
+                tools:replace="android:resource"/> // add this line.
+        </provider>
+    </application>
+
+</manifest>

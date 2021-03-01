@@ -50,7 +50,7 @@
     "react-notification-badge": "^1.4.0",
     "react-viro": "^2.7.3",
     "rn-fetch-blob": "^0.10.15",
-    "three": "^0.100.0",
+    "three": "^0.125.0",
     "tipsi-stripe": "^7.2.0",
     "toggle-switch-react-native": "^2.0.2"
   },

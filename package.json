@@ -11,7 +11,7 @@
   "dependencies": {
     "crypto-js": "^3.1.9-1",
     "react": "16.6.3",
-    "react-native": "0.57.8",
+    "react-native": "0.70.2",
     "react-native-3d-model-view": "^1.2.0",
     "react-native-camera": "^1.6.4",
     "react-native-customisable-switch": "^0.1.0",
